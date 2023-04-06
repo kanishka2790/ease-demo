@@ -1,0 +1,61 @@
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+  <style>
+    .image {
+      width: 100%;
+      height: 100vh;
+      background-image: url("https://images.unsplash.com/photo-1516750930166-ed88ab1adb61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="image"></div>
+  <p></p>
+  <script>
+    const image = document.querySelector(".image");
+    // Get the initial position and scale of the image
+    const initialPosition = {
+      x: image.offsetLeft,
+      y: image.offsetTop
+    };
+    const initialScale = 1;
+    // Set the initial position and scale of the image
+    gsap.set(image, {
+      x: initialPosition.x,
+      y: initialPosition.y,
+      scale: initialScale
+    });
+    // Get the current scroll position
+    let currentScroll = window.pageYOffset;
+    // Add a scroll event listener to the window
+    window.addEventListener("scroll", () => {
+      // Get the current scroll position
+      let newScroll = window.pageYOffset;
+      // Check if the user is scrolling down
+      if (newScroll > currentScroll) {
+        // Scale the image down and move it to the bottom right corner
+        gsap.to(image, {
+          duration: 1,
+          scale:0.3,
+          x: "30%",
+          y: "30%"
+        });
+      } 
+	  else {
+        // Scale the image up and move it back to its initial position
+        gsap.to(image, {
+          duration: 1,
+          scale: initialScale,
+          x: initialPosition.x,
+          y: initialPosition.y
+        });
+      }
+      // Update the current scroll position
+      currentScroll = newScroll;
+    });
+  </script>
+</body>
+</html>
